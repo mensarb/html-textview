@@ -1,10 +1,6 @@
-# Project stopped
-
-This project has been stopped. 4.0 is the last release.
-
-Feel free to fork this project and take over maintaining.
-
 # HtmlTextView for Android
+[![Platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 
 HtmlTextView is an extended TextView component for Android, which can load **very simple** HTML by converting it into Android Spannables for viewing.
 
@@ -22,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.sufficientlysecure:html-textview:4.0'
+    implementation 'com.github.mensarb:html-textview:5.0.0'
 }
 ```
 
