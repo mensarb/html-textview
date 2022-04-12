@@ -15,19 +15,17 @@
  */
 package org.sufficientlysecure.htmltextview.example;
 
-import android.app.Activity;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
-
 import org.sufficientlysecure.htmltextview.DrawTableLinkSpan;
 import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
 import org.sufficientlysecure.htmltextview.example.databinding.ActivityDataBindingExampleBinding;
 
-public class DataBindingExampleActivity extends Activity {
+public class DataBindingExampleActivity extends AppCompatActivity {
 
     // layout_name + binding, generated class
     private ActivityDataBindingExampleBinding binding;
