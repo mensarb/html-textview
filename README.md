@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.mensarb:html-textview:5.0.0'
+    implementation 'com.github.mensarb:html-textview:5.0.1'
 }
 ```
 
