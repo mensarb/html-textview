@@ -33,8 +33,8 @@ import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
 import androidx.annotation.Nullable;
-import java.util.Stack;
 import org.xml.sax.Attributes;
+import java.util.Stack;
 
 /**
  * Some parts of this code are based on android.text.Html
@@ -114,7 +114,7 @@ public class HtmlTagHandler implements WrapperTagHandler {
     private static final BulletSpan defaultBullet = new BulletSpan(defaultIndent);
     private ClickableTableSpan clickableTableSpan;
     private DrawTableLinkSpan drawTableLinkSpan;
-    private HtmlFormatter.TagClickListenerProvider onClickATagListenerProvider;
+    @Nullable private HtmlFormatter.TagClickListenerProvider onClickATagListenerProvider;
 
     private static class Ul {
     }
@@ -271,11 +271,12 @@ public class HtmlTagHandler implements WrapperTagHandler {
                     @Override
                     public void onClick(View widget) {
                         if (onClickATagListenerProvider != null) {
-                            boolean clickConsumed =
-                                onClickATagListenerProvider.provideTagClickListener()
-                                                           .onClick(widget, spannedText, getURL());
-                            if (!clickConsumed) {
-                                super.onClick(widget);
+                            OnClickATagListener onClickATagListener = onClickATagListenerProvider.provideTagClickListener();
+                            if (onClickATagListener != null){
+                                boolean clickConsumed = onClickATagListener.onClick(widget, spannedText, getURL());
+                                if (!clickConsumed){
+                                    super.onClick(widget);
+                                }
                             }
                         }
                     }
@@ -432,7 +433,7 @@ public class HtmlTagHandler implements WrapperTagHandler {
         this.drawTableLinkSpan = drawTableLinkSpan;
     }
 
-    public void setOnClickATagListenerProvider(HtmlFormatter.TagClickListenerProvider onClickATagListenerProvider) {
+    public void setOnClickATagListenerProvider(@Nullable HtmlFormatter.TagClickListenerProvider onClickATagListenerProvider) {
         this.onClickATagListenerProvider = onClickATagListenerProvider;
     }
 }

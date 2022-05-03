@@ -99,7 +99,8 @@ public class HtmlTextView extends JellyBeanSpanFixTextView {
      */
     public void setHtml(@NonNull String html, @Nullable Html.ImageGetter imageGetter) {
         Spanned styledText = HtmlFormatter.formatHtml(
-                html, imageGetter, clickableTableSpan, drawTableLinkSpan, () -> onClickATagListener, indent, removeTrailingWhiteSpace
+                html, imageGetter, clickableTableSpan, drawTableLinkSpan,
+                () -> onClickATagListener, indent, removeTrailingWhiteSpace
         );
         replaceQuoteSpans(styledText);
         setText(styledText);
