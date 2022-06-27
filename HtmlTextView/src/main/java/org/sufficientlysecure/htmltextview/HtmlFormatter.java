@@ -17,7 +17,6 @@ package org.sufficientlysecure.htmltextview;
 import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.text.Spanned;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -40,6 +39,11 @@ public class HtmlFormatter {
 
     public static Spanned formatHtml(@Nullable String html, ImageGetter imageGetter, ClickableTableSpan clickableTableSpan, DrawTableLinkSpan drawTableLinkSpan,
                                      @Nullable TagClickListenerProvider tagClickListenerProvider, float indent, boolean removeTrailingWhiteSpace) {
+    
+        // make links work
+        if (tagClickListenerProvider == null){
+            tagClickListenerProvider = () -> (OnClickATagListener) (widget, spannedText, href) -> false;
+        }
         
         HtmlTagHandler htmlTagHandler = new HtmlTagHandler();
         htmlTagHandler.setClickableTableSpan(clickableTableSpan);
