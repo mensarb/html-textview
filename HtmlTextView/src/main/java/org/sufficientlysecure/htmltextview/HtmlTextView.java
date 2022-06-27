@@ -22,11 +22,9 @@ import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.QuoteSpan;
 import android.util.AttributeSet;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RawRes;
-
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -98,9 +96,18 @@ public class HtmlTextView extends JellyBeanSpanFixTextView {
      *                    HtmlLocalImageGetter and HtmlRemoteImageGetter
      */
     public void setHtml(@NonNull String html, @Nullable Html.ImageGetter imageGetter) {
+        HtmlFormatter.TagClickListenerProvider provider = () -> {
+            if (onClickATagListener != null){
+                return onClickATagListener;
+            }else {
+                // make links work
+                return (OnClickATagListener) (widget, spannedText, href) -> false;
+            }
+        };
+        
         Spanned styledText = HtmlFormatter.formatHtml(
                 html, imageGetter, clickableTableSpan, drawTableLinkSpan,
-                () -> onClickATagListener, indent, removeTrailingWhiteSpace
+                provider, indent, removeTrailingWhiteSpace
         );
         replaceQuoteSpans(styledText);
         setText(styledText);

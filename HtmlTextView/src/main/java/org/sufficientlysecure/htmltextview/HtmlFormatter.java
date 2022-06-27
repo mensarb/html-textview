@@ -38,12 +38,7 @@ public class HtmlFormatter {
     }
 
     public static Spanned formatHtml(@Nullable String html, ImageGetter imageGetter, ClickableTableSpan clickableTableSpan, DrawTableLinkSpan drawTableLinkSpan,
-                                     @Nullable TagClickListenerProvider tagClickListenerProvider, float indent, boolean removeTrailingWhiteSpace) {
-    
-        // make links work
-        if (tagClickListenerProvider == null){
-            tagClickListenerProvider = () -> (OnClickATagListener) (widget, spannedText, href) -> false;
-        }
+                                     TagClickListenerProvider tagClickListenerProvider, float indent, boolean removeTrailingWhiteSpace) {
         
         HtmlTagHandler htmlTagHandler = new HtmlTagHandler();
         htmlTagHandler.setClickableTableSpan(clickableTableSpan);
