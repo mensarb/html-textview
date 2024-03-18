@@ -11,15 +11,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.sufficientlysecure.htmltextview
 
-package org.sufficientlysecure.htmltextview;
+import android.text.Editable
+import org.xml.sax.Attributes
 
-import android.text.Editable;
-
-import androidx.annotation.Nullable;
-
-import org.xml.sax.Attributes;
-
-public interface WrapperTagHandler {
-    boolean handleTag(boolean opening, String tag, Editable output, @Nullable Attributes attributes);
+interface WrapperTagHandler {
+    fun handleTag(
+        opening: Boolean,
+        tag: String?,
+        output: Editable?,
+        attributes: Attributes?
+    ): Boolean
 }

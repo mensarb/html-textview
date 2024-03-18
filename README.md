@@ -25,7 +25,7 @@ dependencies {
 ## Example
 
 ```java
-<org.sufficientlysecure.htmltextview.HtmlTextView
+<org.sufficientlysecure.htmltextview.view.HtmlTextView
             android:id="@+id/html_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

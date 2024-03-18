@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.sufficientlysecure.htmltextview;
+package org.sufficientlysecure.htmltextview.image;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -25,7 +25,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.text.Html.ImageGetter;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -146,7 +145,6 @@ public class HtmlHttpImageGetter implements ImageGetter {
         @Override
         protected void onPostExecute(Drawable result) {
             if (result == null) {
-                Log.w(HtmlTextView.TAG, "Drawable result is null! (source: " + source + ")");
                 return;
             }
             final UrlDrawable urlDrawable = drawableReference.get();

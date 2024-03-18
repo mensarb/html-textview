@@ -12,10 +12,14 @@
  * limitations under the License.
  */
 
-package org.sufficientlysecure.htmltextview;
+package org.sufficientlysecure.htmltextview.format;
 
 import android.text.Html.ImageGetter;
 import androidx.annotation.Nullable;
+
+import org.sufficientlysecure.htmltextview.spannable.ClickableTableSpan;
+import org.sufficientlysecure.htmltextview.spannable.DrawTableLinkSpan;
+import org.sufficientlysecure.htmltextview.OnClickATagListener;
 
 public class HtmlFormatterBuilder {
 

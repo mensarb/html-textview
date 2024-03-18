@@ -14,34 +14,42 @@
  * limitations under the License.
  */
 
-package org.sufficientlysecure.htmltextview;
+package org.sufficientlysecure.htmltextview.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.QuoteSpan;
 import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RawRes;
+
+import org.sufficientlysecure.htmltextview.spannable.ClickableTableSpan;
+import org.sufficientlysecure.htmltextview.DesignQuoteSpan;
+import org.sufficientlysecure.htmltextview.spannable.DrawTableLinkSpan;
+import org.sufficientlysecure.htmltextview.JellyBeanSpanFixTextView;
+import org.sufficientlysecure.htmltextview.LocalLinkMovementMethod;
+import org.sufficientlysecure.htmltextview.OnClickATagListener;
+import org.sufficientlysecure.htmltextview.format.HtmlFormatter;
+import org.sufficientlysecure.htmltextview.format.TagClickListenerProvider;
+
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class HtmlTextView extends JellyBeanSpanFixTextView {
 
-    public static final String TAG = "HtmlTextView";
-    public static final boolean DEBUG = false;
-    public int blockQuoteBackgroundColor = getResources().getColor(R.color.White);
-    public int blockQuoteStripColor = getResources().getColor(R.color.black);
+    public int blockQuoteBackgroundColor = Color.WHITE;
+    public int blockQuoteStripColor = Color.BLACK;
+
     public float blockQuoteStripWidth = 10F;
     public float blockQuoteGap = 20F;
-    @Nullable
-    private ClickableTableSpan clickableTableSpan;
-    @Nullable
-    private DrawTableLinkSpan drawTableLinkSpan;
-    @Nullable
-    private OnClickATagListener onClickATagListener;
+    @Nullable private ClickableTableSpan clickableTableSpan;
+    @Nullable private DrawTableLinkSpan drawTableLinkSpan;
+    @Nullable private OnClickATagListener onClickATagListener;
     private float indent = 24.0f; // Default to 24px.
 
     private boolean removeTrailingWhiteSpace = true;
@@ -59,14 +67,14 @@ public class HtmlTextView extends JellyBeanSpanFixTextView {
     }
 
     /**
-     * @see org.sufficientlysecure.htmltextview.HtmlTextView#setHtml(int)
+     * @see HtmlTextView#setHtml(int)
      */
     public void setHtml(@RawRes int resId) {
         setHtml(resId, null);
     }
 
     /**
-     * @see org.sufficientlysecure.htmltextview.HtmlTextView#setHtml(String)
+     * @see HtmlTextView#setHtml(String)
      */
     public void setHtml(@NonNull String html) {
         setHtml(html, null);
@@ -96,7 +104,7 @@ public class HtmlTextView extends JellyBeanSpanFixTextView {
      *                    HtmlLocalImageGetter and HtmlRemoteImageGetter
      */
     public void setHtml(@NonNull String html, @Nullable Html.ImageGetter imageGetter) {
-        HtmlFormatter.TagClickListenerProvider provider = () -> {
+        TagClickListenerProvider provider = () -> {
             if (onClickATagListener != null){
                 return onClickATagListener;
             }else {
@@ -160,7 +168,6 @@ public class HtmlTextView extends JellyBeanSpanFixTextView {
     }
 
     private void replaceQuoteSpans(Spanned spanned) {
-
         Spannable spannable = (Spannable) spanned;
         QuoteSpan[] quoteSpans = spannable.getSpans(0, spannable.length() - 1, QuoteSpan.class);
         for (QuoteSpan quoteSpan : quoteSpans) {

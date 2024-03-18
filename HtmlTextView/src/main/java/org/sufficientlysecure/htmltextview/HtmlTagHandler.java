@@ -30,10 +30,16 @@ import android.text.style.LeadingMarginSpan;
 import android.text.style.StrikethroughSpan;
 import android.text.style.TypefaceSpan;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.view.View;
+
 import androidx.annotation.Nullable;
+
+import org.sufficientlysecure.htmltextview.format.TagClickListenerProvider;
+import org.sufficientlysecure.htmltextview.spannable.ClickableTableSpan;
+import org.sufficientlysecure.htmltextview.spannable.DrawTableLinkSpan;
+import org.sufficientlysecure.htmltextview.spannable.NumberSpan;
 import org.xml.sax.Attributes;
+
 import java.util.Stack;
 
 /**
@@ -60,7 +66,7 @@ public class HtmlTagHandler implements WrapperTagHandler {
      * @return html with replaced <ul> and <li> tags
      * @see <a href="https://github.com/android/platform_frameworks_base/commit/8b36c0bbd1503c61c111feac939193c47f812190">Specific Android SDK Commit</a>
      */
-    String overrideTags(@Nullable String html) {
+    public String overrideTags(@Nullable String html) {
 
         if (html == null) return null;
         html = "<" + PLACEHOLDER_ITEM + "></" + PLACEHOLDER_ITEM + ">" + html;
@@ -114,7 +120,7 @@ public class HtmlTagHandler implements WrapperTagHandler {
     private static final BulletSpan defaultBullet = new BulletSpan(defaultIndent);
     private ClickableTableSpan clickableTableSpan;
     private DrawTableLinkSpan drawTableLinkSpan;
-    @Nullable private HtmlFormatter.TagClickListenerProvider onClickATagListenerProvider;
+    @Nullable private TagClickListenerProvider onClickATagListenerProvider;
 
     private static class Ul {
     }
@@ -156,10 +162,6 @@ public class HtmlTagHandler implements WrapperTagHandler {
     @Override
     public boolean handleTag(boolean opening, String tag, Editable output, Attributes attributes) {
         if (opening) {
-            // opening tag
-            if (HtmlTextView.DEBUG) {
-                Log.d(HtmlTextView.TAG, "opening, output: " + output.toString());
-            }
 
             if (tag.equalsIgnoreCase(UNORDERED_LIST)) {
                 lists.push(tag);
@@ -208,11 +210,6 @@ public class HtmlTagHandler implements WrapperTagHandler {
                 return false;
             }
         } else {
-            // closing tag
-            if (HtmlTextView.DEBUG) {
-                Log.d(HtmlTextView.TAG, "closing, output: " + output.toString());
-            }
-
             if (tag.equalsIgnoreCase(UNORDERED_LIST)) {
                 lists.pop();
             } else if (tag.equalsIgnoreCase(ORDERED_LIST)) {
@@ -346,10 +343,6 @@ public class HtmlTagHandler implements WrapperTagHandler {
     private void start(Editable output, Object mark) {
         int len = output.length();
         output.setSpan(mark, len, len, Spannable.SPAN_MARK_MARK);
-
-        if (HtmlTextView.DEBUG) {
-            Log.d(HtmlTextView.TAG, "len: " + len);
-        }
     }
 
     /**
@@ -380,11 +373,6 @@ public class HtmlTagHandler implements WrapperTagHandler {
             for (Object replace : replaces) {
                 output.setSpan(replace, where, thisLen, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
-
-            if (HtmlTextView.DEBUG) {
-                Log.d(HtmlTextView.TAG, "where: " + where);
-                Log.d(HtmlTextView.TAG, "thisLen: " + thisLen);
-            }
         }
     }
 
@@ -408,16 +396,14 @@ public class HtmlTagHandler implements WrapperTagHandler {
      */
     private static Object getLast(Editable text, Class kind) {
         Object[] objs = text.getSpans(0, text.length(), kind);
-        if (objs.length == 0) {
-            return null;
-        } else {
+        if (objs.length != 0) {
             for (int i = objs.length; i > 0; i--) {
                 if (text.getSpanFlags(objs[i - 1]) == Spannable.SPAN_MARK_MARK) {
                     return objs[i - 1];
                 }
             }
-            return null;
         }
+        return null;
     }
 
     // Util method for setting pixels.
@@ -433,7 +419,7 @@ public class HtmlTagHandler implements WrapperTagHandler {
         this.drawTableLinkSpan = drawTableLinkSpan;
     }
 
-    public void setOnClickATagListenerProvider(@Nullable HtmlFormatter.TagClickListenerProvider onClickATagListenerProvider) {
+    public void setOnClickATagListenerProvider(@Nullable TagClickListenerProvider onClickATagListenerProvider) {
         this.onClickATagListenerProvider = onClickATagListenerProvider;
     }
 }

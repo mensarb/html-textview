@@ -29,16 +29,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.sufficientlysecure.htmltextview.ClickableTableSpan;
-import org.sufficientlysecure.htmltextview.DrawTableLinkSpan;
-import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
-import org.sufficientlysecure.htmltextview.HtmlTextView;
+import org.sufficientlysecure.htmltextview.spannable.ClickableTableSpan;
+import org.sufficientlysecure.htmltextview.spannable.DrawTableLinkSpan;
+import org.sufficientlysecure.htmltextview.image.HtmlResImageGetter;
+import org.sufficientlysecure.htmltextview.view.HtmlTextView;
 
 public class MainActivity extends AppCompatActivity {
 
     // The html table(s) are individually passed through to the ClickableTableSpan implementation
     // presumably for a WebView activity.
     class ClickableTableSpanImpl extends ClickableTableSpan {
+        @NonNull
         @Override
         public ClickableTableSpan newInstance() {
             return new ClickableTableSpanImpl();

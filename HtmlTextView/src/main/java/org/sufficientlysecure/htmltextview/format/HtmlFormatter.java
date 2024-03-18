@@ -12,13 +12,18 @@
  * limitations under the License.
  */
 
-package org.sufficientlysecure.htmltextview;
+package org.sufficientlysecure.htmltextview.format;
 
 import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.text.Spanned;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import org.sufficientlysecure.htmltextview.spannable.ClickableTableSpan;
+import org.sufficientlysecure.htmltextview.spannable.DrawTableLinkSpan;
+import org.sufficientlysecure.htmltextview.HtmlTagHandler;
 
 public class HtmlFormatter {
 
@@ -33,13 +38,15 @@ public class HtmlFormatter {
         );
     }
 
-    interface TagClickListenerProvider {
-        @Nullable OnClickATagListener provideTagClickListener();
-    }
-
-    public static Spanned formatHtml(@Nullable String html, ImageGetter imageGetter, ClickableTableSpan clickableTableSpan, DrawTableLinkSpan drawTableLinkSpan,
-                                     TagClickListenerProvider tagClickListenerProvider, float indent, boolean removeTrailingWhiteSpace) {
-        
+    public static Spanned formatHtml(
+            @Nullable String html,
+            ImageGetter imageGetter,
+            ClickableTableSpan clickableTableSpan,
+            DrawTableLinkSpan drawTableLinkSpan,
+            TagClickListenerProvider tagClickListenerProvider,
+            float indent,
+            boolean removeTrailingWhiteSpace
+    ) {
         HtmlTagHandler htmlTagHandler = new HtmlTagHandler();
         htmlTagHandler.setClickableTableSpan(clickableTableSpan);
         htmlTagHandler.setDrawTableLinkSpan(drawTableLinkSpan);
@@ -48,14 +55,11 @@ public class HtmlFormatter {
 
         html = htmlTagHandler.overrideTags(html);
 
-        Spanned formattedHtml;
         if (removeTrailingWhiteSpace) {
-            formattedHtml = removeHtmlBottomPadding(Html.fromHtml(html, imageGetter, new WrapperContentHandler(htmlTagHandler)));
+            return removeHtmlBottomPadding(Html.fromHtml(html, imageGetter, new WrapperContentHandler(htmlTagHandler)));
         } else {
-            formattedHtml = Html.fromHtml(html, imageGetter, new WrapperContentHandler(htmlTagHandler));
+            return Html.fromHtml(html, imageGetter, new WrapperContentHandler(htmlTagHandler));
         }
-
-        return formattedHtml;
     }
 
     /**

@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package org.sufficientlysecure.htmltextview;
+package org.sufficientlysecure.htmltextview.image;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -43,7 +43,6 @@ public class HtmlResImageGetter implements Html.ImageGetter {
 
         if (id == 0) {
             // prevent a crash if the resource still can't be found
-            Log.e(HtmlTextView.TAG, "source could not be found: " + source);
             return null;
         } else {
             Drawable d = context.getResources().getDrawable(id);

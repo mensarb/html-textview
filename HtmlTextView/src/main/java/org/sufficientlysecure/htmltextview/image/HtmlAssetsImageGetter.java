@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package org.sufficientlysecure.htmltextview;
+package org.sufficientlysecure.htmltextview.image;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -54,7 +53,6 @@ public class HtmlAssetsImageGetter implements Html.ImageGetter {
             return d;
         } catch (IOException e) {
             // prevent a crash if the resource still can't be found
-            Log.e(HtmlTextView.TAG, "source could not be found: " + source);
             return null;
         }
 

@@ -17,16 +17,15 @@
 
 package org.sufficientlysecure.htmltextview;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p/>
@@ -98,9 +97,6 @@ public class JellyBeanSpanFixTextView extends TextView {
             SpannableStringBuilder builder = new SpannableStringBuilder(text);
             fixSpannedWithSpaces(builder, widthMeasureSpec, heightMeasureSpec);
         } else {
-            if (HtmlTextView.DEBUG) {
-                Log.d(HtmlTextView.TAG, "The text isn't a Spanned");
-            }
             fallbackToString(widthMeasureSpec, heightMeasureSpec);
         }
     }
@@ -119,11 +115,6 @@ public class JellyBeanSpanFixTextView extends TextView {
             removeUnneededSpaces(widthMeasureSpec, heightMeasureSpec, builder, result);
         } else {
             fallbackToString(widthMeasureSpec, heightMeasureSpec);
-        }
-
-        if (HtmlTextView.DEBUG) {
-            long fixDuration = System.currentTimeMillis() - startFix;
-            Log.d(HtmlTextView.TAG, "fixSpannedWithSpaces() duration in ms: " + fixDuration);
         }
     }
 
@@ -153,9 +144,7 @@ public class JellyBeanSpanFixTextView extends TextView {
             } catch (IndexOutOfBoundsException ignored) {
             }
         }
-        if (HtmlTextView.DEBUG) {
-            Log.d(HtmlTextView.TAG, "Could not fix the Spanned by adding spaces around spans");
-        }
+
         return FixingResult.notFixed();
     }
 
@@ -204,9 +193,6 @@ public class JellyBeanSpanFixTextView extends TextView {
     }
 
     private void fallbackToString(int widthMeasureSpec, int heightMeasureSpec) {
-        if (HtmlTextView.DEBUG) {
-            Log.d(HtmlTextView.TAG, "Fallback to unspanned text");
-        }
         String fallbackText = getText().toString();
         setTextAndMeasure(fallbackText, widthMeasureSpec, heightMeasureSpec);
     }

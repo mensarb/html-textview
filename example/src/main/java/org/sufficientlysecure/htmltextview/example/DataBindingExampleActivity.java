@@ -20,9 +20,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
-import org.sufficientlysecure.htmltextview.DrawTableLinkSpan;
-import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
-import org.sufficientlysecure.htmltextview.HtmlTextView;
+import org.sufficientlysecure.htmltextview.spannable.DrawTableLinkSpan;
+import org.sufficientlysecure.htmltextview.image.HtmlResImageGetter;
+import org.sufficientlysecure.htmltextview.view.HtmlTextView;
 import org.sufficientlysecure.htmltextview.example.databinding.ActivityDataBindingExampleBinding;
 
 public class DataBindingExampleActivity extends AppCompatActivity {

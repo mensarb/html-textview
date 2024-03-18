@@ -12,11 +12,12 @@
  * limitations under the License.
  */
 
-package org.sufficientlysecure.htmltextview;
+package org.sufficientlysecure.htmltextview.format;
 
 import android.text.Editable;
 import android.text.Html;
 
+import org.sufficientlysecure.htmltextview.WrapperTagHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
@@ -25,7 +26,7 @@ import org.xml.sax.XMLReader;
 
 public class WrapperContentHandler implements ContentHandler, Html.TagHandler {
     private ContentHandler mContentHandler;
-    private WrapperTagHandler mTagHandler;
+    private final WrapperTagHandler mTagHandler;
     private Editable mSpannableStringBuilder;
 
     public WrapperContentHandler(WrapperTagHandler tagHandler) {
