@@ -16,6 +16,8 @@
 
 package org.sufficientlysecure.htmltextview.example;
 
+import static org.sufficientlysecure.htmltextview.example.WebViewActivity.EXTRA_TABLE_HTML;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -23,12 +25,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import org.sufficientlysecure.htmltextview.ClickableTableSpan;
 import org.sufficientlysecure.htmltextview.DrawTableLinkSpan;
 import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
-import static org.sufficientlysecure.htmltextview.example.WebViewActivity.EXTRA_TABLE_HTML;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onClick(View widget) {
+        public void onClick(@NonNull View widget) {
             Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
             intent.putExtra(EXTRA_TABLE_HTML, getTableHtml());
             startActivity(intent);

@@ -1,15 +1,25 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    compileSdk 34
+
+    namespace "org.sufficientlysecure.htmltextview"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 34
+
         versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.3.0'
+    implementation "androidx.annotation:annotation:1.7.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
  }
